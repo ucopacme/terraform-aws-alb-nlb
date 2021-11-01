@@ -40,7 +40,9 @@ The module will create:
 | Query string       | 
 | Source IP address  | 
 
-## Usage
+## Usage 
+
+Complete example of ALB creation with all Rules/condation
 
 Create terragrunt.hcl config file, copy/past the following configuration.
 
@@ -245,6 +247,86 @@ inputs = {
 
 locals {
   application = "kkapp"
+  createdBy   = "terraform"
+  environment = "dev"
+  group       = "chs"
+  source      = join("/", ["https://github.com/ucopacme/ucop-terraform-config/tree/master/terraform/its-chs-dev/us-west-2", path_relative_to_include()])
+
+}
+
+
+terraform {
+  source = "git::https://git@github.com/ucopacme/terraform-aws-alb-nlb//?ref=v0.0.2"
+}
+
+
+## Usage 
+
+Complete example of NLB creation
+
+Create terragrunt.hcl config file, copy/past the following configuration.
+
+
+```hcl
+
+
+#
+# Include all settings from root terragrunt.hcl file
+include {
+  path = find_in_parent_folders()
+}
+
+inputs = {
+  enabled            = "true"
+  load_balancer_type = "network"
+  vpc_id             = "vpc-06a0bfef01b9d0e7b"
+  subnets            = ["subnet-0c0dbee3b7b03e4e2", "subnet-0fd7ec9b1f3cdd68d"]
+  # security_groups    = ["sg-0212d0be1f151be81", "sg-02a373737b2014053"]
+
+  access_logs = {
+    bucket = "my-nlb-logs"
+  }
+
+  target_groups = [
+    {
+      backend_protocol = "TCP"
+      backend_port     = 80
+      target_type      = "ip"
+    }
+  ]
+
+  https_listeners = [
+    {
+      port               = 443
+      protocol           = "TLS"
+      certificate_arn    = "arn:aws:iam::944706592399:server-certificate/my-server-test"
+      target_group_index = 0
+    }
+  ]
+
+  http_tcp_listeners = [
+    {
+      port               = 80
+      protocol           = "TCP"
+      target_group_index = 0
+    }
+  ]
+
+
+  name = join("-", [local.application, local.environment
+  ])
+  tags = {
+    "ucop:application" = local.application
+    "ucop:createdBy"   = local.createdBy
+    "ucop:environment" = local.environment
+    "ucop:group"       = local.group
+    "ucop:source"      = local.source
+  }
+}
+
+
+locals {
+  application = "kkapp-nlb"
   createdBy   = "terraform"
   environment = "dev"
   group       = "chs"
