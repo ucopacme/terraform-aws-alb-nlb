@@ -259,12 +259,11 @@ terraform {
   source = "git::https://git@github.com/ucopacme/terraform-aws-alb-nlb//?ref=v0.0.2"
 }
 
+```
 
-
-
-```hcl
-
-## Usage 
+ 
+ 
+## Usage
 
 Complete example of NLB creation
 
