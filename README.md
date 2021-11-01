@@ -282,9 +282,9 @@ include {
 inputs = {
   enabled            = "true"
   load_balancer_type = "network"
-  vpc_id             = "vpc-06a0bfef01b9d0e7b"
-  subnets            = ["subnet-0c0dbee3b7b03e4e2", "subnet-0fd7ec9b1f3cdd68d"]
-  # security_groups    = ["sg-0212d0be1f151be81", "sg-02a373737b2014053"]
+  vpc_id             = "vpc-xxxx"
+  subnets            = ["subnet-xxx", "subnet-xxx"]
+  # security_groups    = ["sg-xxxxx", "sg-xxxx"]
 
   access_logs = {
     bucket = "my-nlb-logs"
@@ -302,7 +302,7 @@ inputs = {
     {
       port               = 443
       protocol           = "TLS"
-      certificate_arn    = "arn:aws:iam::944706592399:server-certificate/my-server-test"
+      certificate_arn    = "arn:aws:iam::xxxxxxx:server-certificate/my-server-test"
       target_group_index = 0
     }
   ]
