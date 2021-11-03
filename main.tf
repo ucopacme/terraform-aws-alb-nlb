@@ -1,6 +1,7 @@
 resource "aws_lb" "this" {
   count = var.enabled ? 1 : 0
-  name = join("-", [var.name, "alb"])
+  # name = join("-", [var.name, "alb"])
+  name = var.name
   load_balancer_type = var.load_balancer_type
   internal           = var.internal
   security_groups    = var.security_groups
