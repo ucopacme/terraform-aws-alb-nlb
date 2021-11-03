@@ -256,7 +256,7 @@ locals {
 
 
 terraform {
-  source = "git::https://git@github.com/ucopacme/terraform-aws-alb-nlb//?ref=v0.0.2"
+  source = "git::https://git@github.com/ucopacme/terraform-aws-alb-nlb//?ref=v0.0.3"
 }
 
 ```
@@ -339,5 +339,5 @@ locals {
 
 
 terraform {
-  source = "git::https://git@github.com/ucopacme/terraform-aws-alb-nlb//?ref=v0.0.2"
+  source = "git::https://git@github.com/ucopacme/terraform-aws-alb-nlb//?ref=v0.0.3"
 }
