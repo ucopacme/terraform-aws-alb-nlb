@@ -1,7 +1,8 @@
 resource "aws_lb" "this" {
   count = var.enabled ? 1 : 0
   # name = join("-", [var.name, "alb"])
-  name = var.name
+  # name = var.name
+  name = var.load_balancer_type == "application" ? join("-", [var.name, "alb"]) : join("-", [var.name, "nlb"])
   load_balancer_type = var.load_balancer_type
   internal           = var.internal
   security_groups    = var.security_groups
@@ -46,7 +47,8 @@ resource "aws_lb" "this" {
 
 resource "aws_lb_target_group" "main" {
   count = var.enabled ? length(var.target_groups) : 0
-  name        = join("-", [var.name, count.index],["alb-target-group"])
+  # name        = join("-", [var.name, count.index],["alb-target-group"])
+  name        = var.load_balancer_type == "application" ? join("-", [var.name, count.index, "alb-tg"]) : join("-", [var.name, count.index, "nlb-tg"])
   vpc_id           = var.vpc_id
   port             = lookup(var.target_groups[count.index], "backend_port", null)
   protocol         = lookup(var.target_groups[count.index], "backend_protocol", null) != null ? upper(lookup(var.target_groups[count.index], "backend_protocol")) : null
