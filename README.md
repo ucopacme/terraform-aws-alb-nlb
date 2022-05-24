@@ -44,26 +44,23 @@ The module will create:
 
 Complete example of ALB creation with all Rules/condation
 
-Create terragrunt.hcl config file, copy/past the following configuration.
+Create main.tf config file, copy/past the following configuration.
 
 
-```hcl
+```
 
 #
-# Include all settings from root terragrunt.hcl file
-include {
-  path = find_in_parent_folders()
+
 }
 
-inputs = {
+module "alb" {
+  source = "git::https://git@github.com/ucopacme/terraform-aws-alb-nlb//?ref=v0.0.4"
   enabled            = "true"
   load_balancer_type = "application"
   vpc_id             = "vpc-xxxx"
   subnets            = ["subnet-xxxxxx", "subnet-xxxxx"]
-  security_groups    = ["sg-group", "sg-group"]
-  access_logs = {
-    bucket = "kk-test-alb"
-  }
+  security_groups    = ["sg-group"]
+ 
   # Creates Target group
   target_groups = [
     {
@@ -246,18 +243,16 @@ inputs = {
 
 
 locals {
-  application = "kkapp"
+  application = "xxx"
   createdBy   = "terraform"
-  environment = "dev"
-  group       = "chs"
+  environment = "xxx"
+  group       = "xxx"
   source      = join("/", ["https://github.com/ucopacme/ucop-terraform-config/tree/master/terraform/its-chs-dev/us-west-2", path_relative_to_include()])
 
 }
 
 
-terraform {
-  source = "git::https://git@github.com/ucopacme/terraform-aws-alb-nlb//?ref=v0.0.4"
-}
+
 
 ```
 
@@ -267,28 +262,23 @@ terraform {
 
 Complete example of NLB creation
 
-Create terragrunt.hcl config file, copy/past the following configuration.
+Create main.tf config file, copy/past the following configuration.
 
 
-```hcl
+``
 
 
 #
-# Include all settings from root terragrunt.hcl file
-include {
-  path = find_in_parent_folders()
-}
 
-inputs = {
+
+module "nlb = {
+  source = "git::https://git@github.com/ucopacme/terraform-aws-alb-nlb//?ref=v0.0.4"
   enabled            = "true"
   load_balancer_type = "network"
   vpc_id             = "vpc-xxxx"
   subnets            = ["subnet-xxx", "subnet-xxx"]
-  # security_groups    = ["sg-xxxxx", "sg-xxxx"]
 
-  access_logs = {
-    bucket = "my-nlb-logs"
-  }
+
 
   target_groups = [
     {
@@ -329,15 +319,13 @@ inputs = {
 
 
 locals {
-  application = "kkapp-nlb"
+  application = "xxx"
   createdBy   = "terraform"
-  environment = "dev"
-  group       = "chs"
+  environment = "xxx"
+  group       = "xxx"
   source      = join("/", ["https://github.com/ucopacme/ucop-terraform-config/tree/master/terraform/its-chs-dev/us-west-2", path_relative_to_include()])
 
 }
 
 
-terraform {
-  source = "git::https://git@github.com/ucopacme/terraform-aws-alb-nlb//?ref=v0.0.4"
-}
+
