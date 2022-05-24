@@ -265,7 +265,7 @@ Complete example of NLB creation
 Create main.tf config file, copy/past the following configuration.
 
 
-``
+```
 
 
 #
