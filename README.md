@@ -60,6 +60,13 @@ module "alb" {
   vpc_id             = "vpc-xxxx"
   subnets            = ["subnet-xxxxxx", "subnet-xxxxx"]
   security_groups    = ["sg-group"]
+  #attaching extra cert
+  #extra_ssl_certs = [
+   # {
+    #  certificate_arn = "arn:aws:iam::xxxx"
+
+    #}
+  #]
  
   # Creates Target group
   target_groups = [
