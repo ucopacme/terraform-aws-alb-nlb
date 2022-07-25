@@ -28,7 +28,7 @@ output "http_tcp_listener_arns" {
   value       = aws_lb_listener.frontend_http_tcp.*.arn
 }
 
-output "http_tcp_listener_id" {
+output "http_tcp_listener_ids" {
   description = "The IDs of the TCP and HTTP load balancer listeners created."
   value       = aws_lb_listener.frontend_http_tcp.*.id
 }
