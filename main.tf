@@ -497,6 +497,11 @@ resource "aws_lb_listener" "frontend_https" {
   certificate_arn = var.https_listeners[count.index]["certificate_arn"]
   ssl_policy      = lookup(var.https_listeners[count.index], "ssl_policy", var.listener_ssl_policy_default)
   alpn_policy     = lookup(var.https_listeners[count.index], "alpn_policy", null)
+  lifecycle {
+    ignore_changes = [
+      default_action
+    ]
+  }
 
   dynamic "default_action" {
     for_each = length(keys(var.https_listeners[count.index])) == 0 ? [] : [var.https_listeners[count.index]]
