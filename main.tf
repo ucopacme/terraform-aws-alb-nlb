@@ -15,16 +15,16 @@ resource "aws_lb" "this" {
   ip_address_type                  = var.ip_address_type
   drop_invalid_header_fields       = var.drop_invalid_header_fields
 
-  # See notes in README (ref: https://github.com/terraform-providers/terraform-provider-aws/issues/7987)
-  # dynamic "access_logs" {
-  #   for_each = length(keys(var.access_logs)) == 0 ? [] : [var.access_logs]
 
-  #   content {
-  #     enabled = lookup(access_logs.value, "enabled", lookup(access_logs.value, "bucket", null) != null)
-  #     bucket  = lookup(access_logs.value, "bucket", null)
-  #     prefix  = lookup(access_logs.value, "prefix", null)
-  #   }
-  # }
+   dynamic "access_logs" {
+     for_each = length(keys(var.access_logs)) == 0 ? [] : [var.access_logs]
+
+     content {
+       enabled = lookup(access_logs.value, "enabled", lookup(access_logs.value, "bucket", null) != null)
+       bucket  = lookup(access_logs.value, "bucket", null)
+       prefix  = lookup(access_logs.value, "prefix", null)
+     }
+   }
 
   dynamic "subnet_mapping" {
     for_each = var.subnet_mapping
