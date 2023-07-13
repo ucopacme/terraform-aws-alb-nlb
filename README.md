@@ -54,7 +54,7 @@ Create main.tf config file, copy/past the following configuration.
 }
 
 module "alb" {
-  source = "git::https://git@github.com/ucopacme/terraform-aws-alb-nlb//?ref=v0.0.4"
+  source = "git::https://git@github.com/ucopacme/terraform-aws-alb-nlb//?ref=v0.0.8"
   enabled            = "true"
   load_balancer_type = "application"
   vpc_id             = "vpc-xxxx"
@@ -279,7 +279,7 @@ Create main.tf config file, copy/past the following configuration.
 
 
 module "nlb = {
-  source = "git::https://git@github.com/ucopacme/terraform-aws-alb-nlb//?ref=v0.0.4"
+  source = "git::https://git@github.com/ucopacme/terraform-aws-alb-nlb//?ref=v0.0.8"
   enabled            = "true"
   load_balancer_type = "network"
   vpc_id             = "vpc-xxxx"
