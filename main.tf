@@ -451,6 +451,11 @@ resource "aws_lb_listener" "frontend_http_tcp" {
 
   port     = var.http_tcp_listeners[count.index]["port"]
   protocol = var.http_tcp_listeners[count.index]["protocol"]
+  lifecycle {
+    ignore_changes = [
+      default_action
+    ]
+  }
 
   dynamic "default_action" {
     for_each = length(keys(var.http_tcp_listeners[count.index])) == 0 ? [] : [var.http_tcp_listeners[count.index]]
