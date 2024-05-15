@@ -1,3 +1,15 @@
+# Read in ID of common security group created by Firewall Manager.
+data "aws_security_groups" "fms_security_groups_common_usw2" {
+  tags = {
+    fms-policy-name = "security_groups_common_usw2"
+  }
+
+  filter {
+    name   = "vpc-id"
+    values = [var.vpc_id]
+  }
+}
+
 resource "aws_lb" "this" {
   count = var.enabled ? 1 : 0
   # name = join("-", [var.name, "alb"])
@@ -5,7 +17,7 @@ resource "aws_lb" "this" {
   name = var.load_balancer_type == "application" ? join("-", [var.name, "alb"]) : join("-", [var.name, "nlb"])
   load_balancer_type = var.load_balancer_type
   internal           = var.internal
-  security_groups    = var.security_groups
+  security_groups    = concat(var.security_groups, data.aws_security_groups.fms_security_groups_common_usw2.ids)
   subnets            = var.subnets
 
   idle_timeout                     = var.idle_timeout
@@ -541,7 +553,7 @@ resource "aws_lb_listener" "frontend_https" {
     }
   }
   tags = var.tags
- 
+
 }
 
 resource "aws_lb_listener_certificate" "https_listener" {
