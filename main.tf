@@ -17,7 +17,7 @@ resource "aws_lb" "this" {
   name = var.load_balancer_type == "application" ? join("-", [var.name, "alb"]) : join("-", [var.name, "nlb"])
   load_balancer_type = var.load_balancer_type
   internal           = var.internal
-  security_groups    = concat(var.security_groups, data.aws_security_groups.fms_security_groups_common_usw2.ids)
+  security_groups    = var.load_balancer_type == "application" ? concat(var.security_groups, data.aws_security_groups.fms_security_groups_common_usw2.ids) : var.security_groups
   subnets            = var.subnets
 
   idle_timeout                     = var.idle_timeout
