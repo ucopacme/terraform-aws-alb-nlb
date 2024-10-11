@@ -196,3 +196,9 @@ variable "vpc_id" {
   type        = string
   default     = null
 }
+
+variable "forward_rules_lifecycle_ignore_changes" {
+  description = "A list of lifecycle ignore_changes for forward rules (helpful for ECS Blue/Green deployment with target_group_arn)."
+  type        = list(string)
+  default     = []
+}
