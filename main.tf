@@ -140,6 +140,9 @@ resource "aws_lb_listener_rule" "https_listener_rule" {
   listener_arn = aws_lb_listener.frontend_https[lookup(var.https_listener_rules[count.index], "https_listener_index", count.index)].arn
   priority     = lookup(var.https_listener_rules[count.index], "priority", null)
 
+  lifecycle {
+    ignore_changes = [action]
+  }
 
   # redirect actions
   dynamic "action" {
@@ -301,6 +304,10 @@ resource "aws_lb_listener_rule" "http_tcp_listener_rule" {
 
   listener_arn = aws_lb_listener.frontend_http_tcp[lookup(var.http_tcp_listener_rules[count.index], "http_tcp_listener_index", count.index)].arn
   priority     = lookup(var.http_tcp_listener_rules[count.index], "priority", null)
+
+  lifecycle {
+    ignore_changes = [action]
+  }
 
   # redirect actions
   dynamic "action" {
