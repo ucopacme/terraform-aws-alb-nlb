@@ -100,11 +100,13 @@ resource "aws_lb_target_group" "main" {
       cookie_name     = lookup(stickiness.value, "cookie_name", null)
     }
   }
-  tags = var.tags
 
+  tags = var.tags
 
   lifecycle {
     create_before_destroy = true
+    # Hokey way to allow for different application tags per target group.
+    ignore_changes = [tags["ucop:application"]]
   }
 }
 
