@@ -13,7 +13,7 @@ variable "drop_invalid_header_fields" {
 variable "enable_deletion_protection" {
   description = "If true, deletion of the load balancer will be disabled via the AWS API. This will prevent Terraform from deleting the load balancer. Defaults to false."
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "enable_http2" {
