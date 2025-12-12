@@ -13,7 +13,7 @@ variable "drop_invalid_header_fields" {
 variable "enable_deletion_protection" {
   description = "If true, deletion of the load balancer will be disabled via the AWS API. This will prevent Terraform from deleting the load balancer. Defaults to false."
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "enable_http2" {
@@ -73,7 +73,7 @@ variable "ip_address_type" {
 variable "listener_ssl_policy_default" {
   description = "The security policy if using HTTPS externally on the load balancer. [See](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-policy-table.html)."
   type        = string
-  default     = "ELBSecurityPolicy-TLS13-1-2-2021-06"
+  default     = "ELBSecurityPolicy-TLS13-1-2-Res-PQ-2025-09"
 }
 
 variable "internal" {
